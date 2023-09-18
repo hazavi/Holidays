@@ -1,0 +1,118 @@
+﻿@page "/"
+@using Data
+
+<h1>MærkeDage</h1>
+
+<!-- Year Input -->
+<div class="year-input">
+    <label for="yearInput">Enter Year:</label>
+    <input type="number" id="yearInput" @bind="selectedYear" />
+    <button @onclick="ChangeYear">View Calendar</button>
+</div>
+
+<!-- Select Month and Year -->
+<div class="select-month">
+    <label for="monthSelector">Select Month:</label>
+    <select id="monthSelector" @onchange="ChangeMonth">
+        @foreach (var month in Enumerable.Range(1, 12))
+        {
+            var date = new DateTime(currentMonth.Year, month, 1);
+            <option value="@date.ToString("yyyy-MM")">@date.ToString("MMMM yyyy")</option>
+        }
+    </select>
+</div>
+
+<!-- Calendar Display -->
+<div class="calendar">
+    <!-- Display the current month and year -->
+
+    <!-- Calendar Grid -->
+    <table class="table">
+        <thead>
+            <!-- Weekday headers (Sun, Mon, Tue, etc.) -->
+            <tr>
+                @foreach (var day in Enum.GetValues(typeof(DayOfWeek)))
+                {
+                    <th>@day.ToString().Substring(0, 3)</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for (int row = 0; row < 6; row++)
+            {
+                <tr>
+                    @for (int col = 0; col < 7; col++)
+                    {
+                        var currentDate = new DateTime(currentMonth.Year, currentMonth.Month, 1)
+                            .AddDays(row * 7 + col);
+                        var isHoliday = holidaysInMonth.Any(h => h.Date.Date == currentDate.Date);
+
+                        <td>
+                            @if (currentDate.Month == currentMonth.Month)
+                            {
+                                @currentDate.Day
+                                @if (isHoliday)
+                                {
+                                    <br />
+                                    <span class="holiday-text">@holidaysInMonth.First(h => h.Date.Date == currentDate.Date).LocalName</span>
+                                }
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    
+    private List<Holiday> holidays = new List<Holiday>();
+    private List<Holiday> holidaysInMonth = new List<Holiday>();
+    private DateTime currentMonth = DateTime.Now;
+    protected int year = 2023;
+    protected string CountryCode = "DK";
+    private int selectedYear = DateTime.Now.Year; // Default to the current year
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Fetch holidays from the API
+        holidays = await GetHolidaysAsync();
+        holidaysInMonth = HolidayData.GetHolidaysForMonth(currentMonth);
+
+    }
+
+    private async Task<List<Holiday>> GetHolidaysAsync()
+    {
+        using var httpClient = new HttpClient();
+        var response = await httpClient.GetFromJsonAsync<List<Holiday>>($"https://date.nager.at/api/v3/PublicHolidays/{year}/{CountryCode}");
+
+        return response;
+    }
+
+    protected override void OnInitialized()
+{
+    // Initialize the holidays for the current month using the HolidayData class
+    holidaysInMonth = HolidayData.GetHolidaysForMonth(currentMonth);
+    }
+
+
+    private void ChangeMonth(ChangeEventArgs e)
+    {
+        if (DateTime.TryParse(e.Value.ToString(), out DateTime selectedDate))
+        {
+            currentMonth = selectedDate;
+            holidaysInMonth = HolidayData.GetHolidaysForMonth(currentMonth);
+        }
+    }
+
+    private void ChangeYear()
+    {
+        // Update the currentMonth based on the selected year
+        currentMonth = new DateTime(selectedYear, currentMonth.Month, 1);
+
+        // Fetch and display holidays for the selected month and year
+        holidaysInMonth = HolidayData.GetHolidaysForMonth(currentMonth);
+    }
+
+}

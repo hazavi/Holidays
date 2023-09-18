@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MærkeDag", "MærkeDag\MærkeDag.csproj", "{E57FB3B9-66ED-413D-8AEC-964639703913}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E57FB3B9-66ED-413D-8AEC-964639703913}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E57FB3B9-66ED-413D-8AEC-964639703913}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E57FB3B9-66ED-413D-8AEC-964639703913}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E57FB3B9-66ED-413D-8AEC-964639703913}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1A6C97A4-A005-441A-A656-55AEBF51D3E1}
+	EndGlobalSection
+EndGlobal
