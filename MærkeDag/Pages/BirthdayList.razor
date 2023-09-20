@@ -1,0 +1,56 @@
+﻿@page "/Birthday"
+@using MærkeDag.Data
+@inject BirthdayDbService bdayService
+
+<NavLink class="nav-link" href="AddBirthday"> 
+    <span class="io io-plus" aria-hidden="true">Add New Birthday</span>
+</NavLink>
+
+<h3>BirthdayList</h3>
+
+@if(BdayObject is null)
+{
+    <p>><em>Loading.....</em></p>
+}else
+{
+    <table class="table">
+        <thread>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Navn
+                </th>
+                <th>
+                    Følselsdag
+                </th>
+            </tr>
+        </thread>
+        <tbody>
+            @foreach(var bday in BdayObject)
+            {
+                <tr><td>
+                        @bday.ID
+                    </td>
+                    <td>
+                        @bday.Navn
+                    </td>
+                    <td>
+                        @bday.Følselsdag.ToShortDateString()
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}
+
+@code {
+    List<Birthday> BdayObject;
+
+    protected override async Task OnInitializedAsync()
+    {
+        BdayObject  = await Task.Run(() => bdayService.GetBirthdays());
+    }
+}

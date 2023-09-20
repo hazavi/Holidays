@@ -1,8 +1,21 @@
 ﻿@page "/"
 @using Data
+@using MærkeDag
+@using Microsoft.EntityFrameworkCore;
+@using Microsoft.Extensions.Configuration;
+
+@inject BirthdayDbContext dbContext
 
 <h1>MærkeDage</h1>
 
+<h3>Items</h3>
+@*
+<ul>
+    @foreach (var item in dbContext.Birthdays)
+    {
+        <li>@item.Navn - @item.Følselsdag.ToShortDateString()</li>
+    }
+</ul>*@
 <!-- Year Input -->
 <div class="year-input">
     <label for="yearInput">Enter Year:</label>
@@ -73,9 +86,16 @@
     protected int year = 2023;
     protected string CountryCode = "DK";
     private int selectedYear = DateTime.Now.Year; // Default to the current year
+    private List<Birthday> birthdays = new List<Birthday>();
+
+
 
     protected override async Task OnInitializedAsync()
     {
+        // Fetch holidays from the API
+        holidays = await GetHolidaysAsync();
+        holidaysInMonth = HolidayData.GetHolidaysForMonth(currentMonth);
+
         // Fetch holidays from the API
         holidays = await GetHolidaysAsync();
         holidaysInMonth = HolidayData.GetHolidaysForMonth(currentMonth);
@@ -91,9 +111,10 @@
     }
 
     protected override void OnInitialized()
-{
-    // Initialize the holidays for the current month using the HolidayData class
-    holidaysInMonth = HolidayData.GetHolidaysForMonth(currentMonth);
+    {
+        // Initialize the holidays for the current month using the HolidayData class
+        holidaysInMonth = HolidayData.GetHolidaysForMonth(currentMonth);
+
     }
 
 
@@ -114,5 +135,9 @@
         // Fetch and display holidays for the selected month and year
         holidaysInMonth = HolidayData.GetHolidaysForMonth(currentMonth);
     }
+
+
+
+
 
 }

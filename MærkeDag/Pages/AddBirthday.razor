@@ -1,0 +1,65 @@
+﻿@page "/AddBirthday"
+@using MærkeDag.Data
+@using System.Globalization;
+@inject BirthdayDbService bdayService
+@inject NavigationManager NavManager
+
+<h3>Tilføj Fødselsdag</h3>
+<hr />
+
+<form>
+    <div class="row">
+        <div class="cold-md-8">
+
+            <div class="for-group">
+                <label for="Name" class="control-label">Navn</label>
+                <input form="Name" class="form-control" @bind=@obj.Navn/>
+            </div>
+            <div class="for-group">
+                <label for="følsesdag" class="control-label">Birthday (dd-MM-yyyy)</label>
+                <input form="følsesdag" class="form-control" type="text" @bind="dateInput" @oninput="ValidateDate" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@CreateBirthday" value="Save" />
+                <input type="button" class="btn btn-danger" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@code {
+    Birthday obj = new Birthday();
+
+    private string dateInput;
+
+    private DateTime objFølselsdag;
+
+    private void ValidateDate(ChangeEventArgs e)
+    {
+        if (DateTime.TryParseExact(e.Value.ToString(), "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
+        {
+            objFølselsdag = parsedDate;
+        }
+        else
+        {
+            // Handle invalid date input, e.g., show an error message
+        }
+    }
+
+    protected async void CreateBirthday()
+    {
+        await bdayService.AddBirthday(obj);
+        NavManager.NavigateTo("Birthday");
+    }
+    protected async void Cancel()
+    {
+       NavManager.NavigateTo("Birthday");
+
+    }
+}
