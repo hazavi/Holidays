@@ -3,10 +3,10 @@
 @inject BirthdayDbService bdayService
 
 <NavLink class="nav-link" href="AddBirthday"> 
-    <span class="io io-plus" aria-hidden="true">Add New Birthday</span>
+    <span class="oi oi-plus" aria-hidden="true">Add New Birthday</span>
 </NavLink>
 
-<h3>BirthdayList</h3>
+<h3>Fødselsdage Lister</h3>
 
 @if(BdayObject is null)
 {
@@ -14,7 +14,6 @@
 }else
 {
     <table class="table">
-        <thread>
             <tr>
                 <th>
                     ID
@@ -25,12 +24,19 @@
                 <th>
                     Følselsdag
                 </th>
+                <th>
+                    Edit
+                </th>
+                <th>
+                    Delete
+                </th>
             </tr>
-        </thread>
         <tbody>
             @foreach(var bday in BdayObject)
             {
-                <tr><td>
+                <tr>
+
+                    <td>
                         @bday.ID
                     </td>
                     <td>
@@ -38,6 +44,16 @@
                     </td>
                     <td>
                         @bday.Følselsdag.ToShortDateString()
+                    </td>
+                    <td>
+                        <a class="nav-link btn btn-primary" href="Edit/@bday.ID">
+                            <span class="oi oi-pencil" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="nav-link btn btn-danger" href="Delete/@bday.ID">
+                            <span class="oi oi-trash" aria-hidden="true"></span>
+                        </a>
                     </td>
                 </tr>
             }

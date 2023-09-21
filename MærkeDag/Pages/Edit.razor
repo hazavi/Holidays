@@ -1,10 +1,10 @@
-﻿@page "/AddBirthday"
+﻿@page "/Edit/{Id}"
 @using MærkeDag.Data
 @using System.Globalization;
 @inject BirthdayDbService bdayService
 @inject NavigationManager NavManager
 
-<h3>Add Birthday</h3>
+<h3>Edit</h3>
 <hr />
 
 <form>
@@ -25,7 +25,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <input type="button" class="btn btn-primary" @onclick="@CreateBirthday" value="Save" />
+                <input type="button" class="btn btn-primary" @onclick="@UpdateUserDetails" value="Update" />
                 <input type="button" class="btn btn-danger" @onclick="@Cancel" value="Cancel" />
             </div>
         </div>
@@ -34,6 +34,11 @@
 </form>
 
 @code {
+
+    [Parameter]
+
+    public string Id { get; set; }
+
     Birthday obj = new Birthday();
 
     protected override void OnInitialized()
@@ -41,9 +46,14 @@
         obj.Følselsdag = DateTime.Now;
     }
 
-    protected async void CreateBirthday()
+    protected override async Task OnInitializedAsync()
     {
-        await bdayService.AddBirthday(obj);
+        obj = await Task.Run(() => bdayService.GetInfoByID(Convert.ToInt32(Id)));
+    }
+
+    protected async void UpdateUserDetails()
+    {
+        await bdayService.UpdateUser(obj);
         NavManager.NavigateTo("Birthday");
     }
     protected async void Cancel()
