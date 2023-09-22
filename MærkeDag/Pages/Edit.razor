@@ -12,11 +12,11 @@
         <div class="cold-md-8">
 
             <div class="for-group">
-                <label for="Name" class="control-label">Navn</label>
+                <label for="Name" class="control-label"><strong>Navn</strong></label>
                 <input form="Name" class="form-control" @bind=@obj.Navn/>
             </div>
             <div class="for-group">
-                <label for="birthday" class="control-label">Birthday</label>
+                <label for="birthday" class="control-label"><strong>Birthday</strong></label>
                 <input form="birthday" class="form-control" type="date" @bind=@obj.Følselsdag />
             </div>
         </div>
@@ -24,7 +24,7 @@
 
     <div class="row">
         <div class="col-md-4">
-            <div class="form-group">
+            <div class="form-group ">
                 <input type="button" class="btn btn-primary" @onclick="@UpdateUserDetails" value="Update" />
                 <input type="button" class="btn btn-danger" @onclick="@Cancel" value="Cancel" />
             </div>

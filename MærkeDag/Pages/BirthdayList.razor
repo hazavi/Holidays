@@ -1,5 +1,6 @@
 ﻿@page "/Birthday"
 @using MærkeDag.Data
+@using System.Globalization;
 @inject BirthdayDbService bdayService
 
 <NavLink class="nav-link" href="AddBirthday"> 
@@ -14,6 +15,7 @@
 }else
 {
     <table class="table">
+        <thead class="table-success">
             <tr>
                 <th>
                     ID
@@ -31,6 +33,8 @@
                     Delete
                 </th>
             </tr>
+        </thead>
+            
         <tbody>
             @foreach(var bday in BdayObject)
             {
@@ -43,7 +47,7 @@
                         @bday.Navn
                     </td>
                     <td>
-                        @bday.Følselsdag.ToShortDateString()
+                        @bday.Følselsdag.ToString("MMMM d, yyyy")
                     </td>
                     <td>
                         <a class="nav-link btn btn-primary" href="Edit/@bday.ID">
