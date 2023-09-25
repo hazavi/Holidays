@@ -47,7 +47,7 @@
                         @bday.Navn
                     </td>
                     <td>
-                        @bday.Følselsdag.ToString("MMMM d, yyyy")
+                        @(bday.Følselsdag.ToString("MMMM d, yyyy")[0].ToString().ToUpper() + bday.Følselsdag.ToString("MMMM d, yyyy").Substring(1))
                     </td>
                     <td>
                         <a class="nav-link btn btn-primary" href="Edit/@bday.ID">

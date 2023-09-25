@@ -15,7 +15,7 @@
         @foreach (var holiday in holidays)
         {
             <tr>
-                <td>@holiday.Date.ToShortDateString()</td>
+                <td>@(holiday.Date.ToString("MMMM d, yyyy")[0].ToString().ToUpper() + holiday.Date.ToString("MMMM d, yyyy").Substring(1))</td> 
                 <td>@holiday.LocalName</td>
             </tr>
         }

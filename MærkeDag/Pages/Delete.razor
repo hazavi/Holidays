@@ -20,7 +20,7 @@
             </div>
             <div class="for-group">
                 <label for="birthday" class="control-label"><strong>Birthday: </strong></label>
-                <label>@obj.Følselsdag.ToString("MMMM d, yyyy")</label>
+                <label>@(obj.Følselsdag.ToString("MMMM d, yyyy")[0].ToString().ToUpper() + obj.Følselsdag.ToString("MMMM d, yyyy").Substring(1))</label>
             </div>
         </div>
     </div>
