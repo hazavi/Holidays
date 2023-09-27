@@ -15,7 +15,7 @@
 }else
 {
     <table class="table">
-        <thead class="table-success">
+        <thead>
             <tr>
                 <th>
                     ID
@@ -27,11 +27,9 @@
                     Følselsdag
                 </th>
                 <th>
-                    Edit
+                    
                 </th>
-                <th>
-                    Delete
-                </th>
+
             </tr>
         </thead>
             
@@ -49,16 +47,16 @@
                     <td>
                         @(bday.Følselsdag.ToString("MMMM d, yyyy")[0].ToString().ToUpper() + bday.Følselsdag.ToString("MMMM d, yyyy").Substring(1))
                     </td>
-                    <td>
+                    <td class="actionButtons">
                         <a class="nav-link btn btn-primary" href="Edit/@bday.ID">
                             <span class="oi oi-pencil" aria-hidden="true"></span>
                         </a>
-                    </td>
-                    <td>
+
                         <a class="nav-link btn btn-danger" href="Delete/@bday.ID">
                             <span class="oi oi-trash" aria-hidden="true"></span>
                         </a>
                     </td>
+                   
                 </tr>
             }
         </tbody>
@@ -68,6 +66,7 @@
 
 @code {
     List<Birthday> BdayObject;
+
 
     protected override async Task OnInitializedAsync()
     {

@@ -8,20 +8,13 @@
 
 <h1>MærkeDage</h1>
 
-<h3>Items</h3>
-@*
+
 <ul>
     @foreach (var item in dbContext.Birthdays)
     {
         <li>@item.Navn - @item.Følselsdag.ToShortDateString()</li>
     }
-</ul>*@
-<!-- Year Input -->
-<div class="year-input">
-    <label for="yearInput">Enter Year:</label>
-    <input type="number" id="yearInput" @bind="selectedYear" />
-    <button @onclick="ChangeYear">View Calendar</button>
-</div>
+</ul>
 
 <!-- Select Month and Year -->
 <div class="select-month">
@@ -69,6 +62,15 @@
                                     <br />
                                     <span class="holiday-text">@holidaysInMonth.First(h => h.Date.Date == currentDate.Date).LocalName</span>
                                 }
+                                 <!-- Add this code to display birthdays -->
+                                @foreach (var birthday in dbContext.Birthdays)
+                                {
+                                    if (birthday.Følselsdag.Date == currentDate.Date)
+                                    {
+                                        <br />
+                                        <span class="birthday-text">@birthday.Navn</span>
+                                    }
+                                }
                             }
                         </td>
                     }
@@ -87,8 +89,6 @@
     protected string CountryCode = "DK";
     private int selectedYear = DateTime.Now.Year; // Default to the current year
     private List<Birthday> birthdays = new List<Birthday>();
-
-
 
     protected override async Task OnInitializedAsync()
     {
@@ -126,18 +126,6 @@
             holidaysInMonth = HolidayData.GetHolidaysForMonth(currentMonth);
         }
     }
-
-    private void ChangeYear()
-    {
-        // Update the currentMonth based on the selected year
-        currentMonth = new DateTime(selectedYear, currentMonth.Month, 1);
-
-        // Fetch and display holidays for the selected month and year
-        holidaysInMonth = HolidayData.GetHolidaysForMonth(currentMonth);
-    }
-
-
-
 
 
 }

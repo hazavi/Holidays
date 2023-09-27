@@ -33,6 +33,10 @@
     color: #e74c3c; /* Red color for holidays */
     font-weight: bold;
 }
+.birthday-text {
+    color:blueviolet; /* Red color for holidays */
+    font-weight: bold;
+}
 
 /* Month Navigation Styles */
 .month-navigation {
