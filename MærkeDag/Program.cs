@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<BirthdayDbService>();
+builder.Services.AddScoped<HolidayDbService>();
 
 // Connection to Database
 builder.Services.AddDbContext<BirthdayDbContext>(item=>item.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

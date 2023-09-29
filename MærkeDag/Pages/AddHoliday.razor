@@ -1,0 +1,39 @@
+﻿@page "/AddHoliday"
+@using Data
+@inject NavigationManager NavManager
+@inject HolidayService holidayService
+@using Microsoft.AspNetCore.Components.Forms
+
+<h1>Add Holiday</h1>
+
+<!-- Create Holiday Form -->
+<EditForm Model="newHoliday">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label for="holidayName">Holiday Name:</label>
+        <InputText id="holidayName" @bind-Value="newHoliday.LocalName" class="form-control" />
+        <ValidationMessage For="() => newHoliday.LocalName" />
+    </div>
+    <div class="form-group">
+        <label for="holidayDate">Holiday Date:</label>
+        <InputDate id="holidayDate" @bind-Value="newHoliday.Date" class="form-control" />
+        <ValidationMessage For="() => newHoliday.Date" />
+    </div>
+    <button class="btn btn-success" @onclick="CreateHoliday">Create</button>
+    <button class="btn btn-danger" @onclick="Cancel">Cancel</button>
+</EditForm>
+
+@code {
+    private Holiday newHoliday = new Holiday();
+
+    private void CreateHoliday()
+    {
+        holidayService.AddHoliday(newHoliday);
+        NavManager.NavigateTo("/HolidayList");
+    }
+
+    private void Cancel()
+    { 
+        NavManager.NavigateTo("/HolidayList");
+    }
+}

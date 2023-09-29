@@ -1,0 +1,97 @@
+﻿@page "/HolidayList"
+
+@using Data
+@inject HolidayDbService holidayDbService
+
+<h1>MærkeDage Lister</h1>
+
+<NavLink class="nav-link" href="AddHoliday"> 
+    <span class="oi oi-plus" aria-hidden="true">Add Holiday</span>
+</NavLink>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Holiday Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var holiday in holidays)
+        {
+            <tr>
+                <td>@(holiday.Date.ToString("MMMM d, yyyy")[0].ToString().ToUpper() + holiday.Date.ToString("MMMM d, yyyy").Substring(1))</td> 
+                <td>@holiday.LocalName</td>
+                <td class="actionButtons">
+                    <a class="nav-link btn btn-primary" href="EditHoliday">
+                            <span class="oi oi-pencil" aria-hidden="true"></span>
+                        </a>
+                        <a class="nav-link btn btn-danger" href="DeleteHoliday">
+                            <span class="oi oi-trash" aria-hidden="true"></span>
+                        </a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+        private List<Holiday> holidays;
+        private Holiday holiday = new Holiday(); // Initialize with an empty holiday object
+        private List<Holiday> newholidays = new List<Holiday>();
+
+        protected override void OnInitialized()
+        {
+            // Replace this with the desired month and year
+            DateTime currentMonth = DateTime.Now;
+
+            // Get the holidays for the current month
+            holidays = HolidayData.GetHolidaysForMonth(currentMonth);
+
+            newholidays = HolidayData.GetHolidaysForMonth(DateTime.Now);
+
+        }
+
+        private void SaveHoliday()
+{
+        if (!holidays.Contains(holiday))
+        {
+            // Add the new holiday to the list
+            holidays.Add(holiday);
+        }
+        else
+        {
+            // Update the existing holiday in the list
+            var existingHoliday = holidays.FirstOrDefault(h => h.Date == holiday.Date);
+            if (existingHoliday != null)
+            {
+                existingHoliday.LocalName = holiday.LocalName;
+            }
+        }
+
+            // Clear the holiday object for the next entry
+            holiday = new Holiday();
+        }
+
+
+        private void EditHoliday()
+        {
+            // Set the current holiday for editing
+            holiday = holidays.FirstOrDefault(h => h.Date == holiday.Date);
+        }
+
+        private void DeleteHoliday()
+        {
+            // Remove the holiday from the list
+            holidays.RemoveAll(h => h.Date == holiday.Date);
+
+            // Clear the holiday object
+            holiday = new Holiday();
+        }
+
+
+}
+      
+

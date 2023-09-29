@@ -1,0 +1,14 @@
+﻿
+.nav-link.btn {
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    width: fit-content;
+    margin: 0;
+}
+
+.actionButtons {
+    display: flex;
+    justify-content: space-evenly;
+}

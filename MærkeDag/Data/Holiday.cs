@@ -2,9 +2,10 @@
 {
     public class Holiday
     {
-        public DateTime Date { get; set; }
-        public string Name { get; set; }
+        public int Id { get; set; }
         public string LocalName { get; set; }
+        public DateTime Date { get; set; }
+        
     }
 
 }

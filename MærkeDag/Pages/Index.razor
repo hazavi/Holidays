@@ -68,7 +68,7 @@
                                     if (birthday.Følselsdag.Date == currentDate.Date)
                                     {
                                         <br />
-                                        <span class="birthday-text">@birthday.Navn</span>
+                                        <span class="birthday-text">@birthday.Navn's Birthday</span>
                                     }
                                 }
                             }
@@ -96,9 +96,7 @@
         holidays = await GetHolidaysAsync();
         holidaysInMonth = HolidayData.GetHolidaysForMonth(currentMonth);
 
-        // Fetch holidays from the API
-        holidays = await GetHolidaysAsync();
-        holidaysInMonth = HolidayData.GetHolidaysForMonth(currentMonth);
+        
 
     }
 
