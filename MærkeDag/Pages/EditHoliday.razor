@@ -1,7 +1,66 @@
-﻿@page "/EditHoliday"
+﻿@page "/EditHoliday/{Id}"
 
-<h3>Edit Holiday</h3>
+@using MærkeDag.Data
+@using System.Globalization;
+@inject HolidayDbService holidayService
+@inject NavigationManager NavManager
+
+<h3>Edit</h3>
+<hr />
+
+<form>
+    <div class="row">
+        <div class="cold-md-8">
+
+            <div class="for-group">
+                <label for="Name" class="control-label"><strong>Holiday Name</strong></label>
+                <input form="Name" class="form-control" @bind=@obj.LocalName />
+            </div>
+            <div class="for-group">
+                <label for="birthday" class="control-label"><strong>Date</strong></label>
+                <input form="birthday" class="form-control" type="date" @bind=@obj.Date />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group ">
+                <input type="button" class="btn btn-primary" @onclick="@Update" value="Update" />
+                <input type="button" class="btn btn-danger" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+
+</form>
 
 @code {
 
+    [Parameter]
+
+    public string Id { get; set; }
+
+    Holiday obj = new Holiday();
+
+    protected override void OnInitialized()
+    {
+        obj.Date = DateTime.Now;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        obj = await Task.Run(() => holidayService.GetInfo(Convert.ToInt32(Id)));
+    }
+
+    protected async void Update()
+    {
+        await holidayService.Update(obj);
+        NavManager.NavigateTo("Birthday");
+    }
+    protected async void Cancel()
+    {
+        NavManager.NavigateTo("Birthday");
+
+    }
 }
+

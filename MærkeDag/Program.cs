@@ -16,6 +16,8 @@ builder.Services.AddScoped<HolidayDbService>();
 
 // Connection to Database
 builder.Services.AddDbContext<BirthdayDbContext>(item=>item.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<HolidayDbContext>(item=>item.UseSqlServer(builder.Configuration.GetConnectionString("SecondaryConnection")));
+
 
 var app = builder.Build();
 

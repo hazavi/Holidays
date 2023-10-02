@@ -1,7 +1,72 @@
-﻿@page "/DeleteHoliday"
+﻿@page "/DeleteHoliday/{Id}"
 
-<h3>Delete Holiday</h3>
+@using MærkeDag.Data
+@using System.Globalization;
+@inject HolidayDbService holidayService
+@inject NavigationManager NavManager
+
+<h3>Delete</h3>
+<hr />
+
+<form>
+    <div class="row">
+        <div class="cold-md-8">
+            <div class="for-group">
+                <label for="Id" class="control-label"><strong>ID: </strong> </label>
+                <label>@obj.Id</label>
+            </div>
+            <div class="for-group">
+                <label for="Name" class="control-label"><strong>Navn: </strong></label>
+                <label>@obj.LocalName</label>
+            </div>
+            <div class="for-group">
+                <label for="birthday" class="control-label"><strong>Birthday: </strong></label>
+                <label>@(obj.Date.ToString("MMMM d, yyyy")[0].ToString().ToUpper() + obj.Date.ToString("MMMM d, yyyy").Substring(1))</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@Delete" value="Delete" />
+                <input type="button" class="btn btn-danger" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+
+</form>
 
 @code {
 
+    [Parameter]
+
+    public string Id { get; set; }
+
+    Holiday obj = new Holiday();
+
+
+
+    protected override void OnInitialized()
+    {
+        obj.Date = DateTime.Now;
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        obj = await Task.Run(() => holidayService.GetInfo(Convert.ToInt32(Id)));
+    }
+
+    protected async void Delete()
+    {
+        await holidayService.Delete(obj);
+        NavManager.NavigateTo("Birthday");
+    }
+    protected async void Cancel()
+    {
+        NavManager.NavigateTo("Birthday");
+
+    }
 }
+

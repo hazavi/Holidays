@@ -20,7 +20,7 @@ namespace MærkeDag.Data
         }
 
         //Add Birthday
-        public async Task<bool> AddBirthday(Holiday holiday)
+        public async Task<bool> AddHoliday(Holiday holiday)
         {
             await _dbContext.Holiday.AddAsync(holiday);
             await _dbContext.SaveChangesAsync();
@@ -28,14 +28,14 @@ namespace MærkeDag.Data
         }
 
         //Get User data by ID
-        public async Task<Holiday> GetInfoByID(int id)
+        public async Task<Holiday> GetInfo(int id)
         {
             Holiday holiday = await _dbContext.Holiday.FirstOrDefaultAsync(x => x.Id == id);
             return holiday;
         }
 
         //Update BDAY User data
-        public async Task<bool> UpdateUser(Holiday holiday)
+        public async Task<bool> Update(Holiday holiday)
         {
             _dbContext.Holiday.Update(holiday);
             await _dbContext.SaveChangesAsync();
@@ -43,7 +43,7 @@ namespace MærkeDag.Data
         }
 
         //Delete User data
-        public async Task<bool> DeleteUser(Holiday holiday)
+        public async Task<bool> Delete(Holiday holiday)
         {
             _dbContext.Holiday.Remove(holiday);
             await _dbContext.SaveChangesAsync();
