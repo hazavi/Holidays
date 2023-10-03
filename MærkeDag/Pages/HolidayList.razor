@@ -1,12 +1,12 @@
-﻿@page "/HolidayList"
-
+﻿@page "/Holiday"
 @using Data
-@inject HolidayDbService holidayDbService
+@using Microsoft.EntityFrameworkCore
+@inject HolidayDbContext dbContext
 
-<h1>MærkeDage Lister</h1>
+<h1>Holidays List</h1>
 
 <NavLink class="nav-link" href="AddHoliday"> 
-    <span class="oi oi-plus" aria-hidden="true">Add Holiday</span>
+    <span class="oi oi-plus" aria-hidden="true"> Add Holiday</span>
 </NavLink>
 
 <table class="table">
@@ -22,25 +22,32 @@
         {
             <tr>
                 <td>@(holiday.Date.ToString("MMMM d, yyyy")[0].ToString().ToUpper() + holiday.Date.ToString("MMMM d, yyyy").Substring(1))</td> 
-                <td>@holiday.LocalName</td>
+                <td> 
+                        @holiday.Name
+                    </td>
                 <td class="actionButtons">
-                    <a class="nav-link btn btn-primary" href="EditHoliday">
+                    <a class="nav-link btn btn-primary" href="EditHoliday/@holiday.ID">
                             <span class="oi oi-pencil" aria-hidden="true"></span>
-                        </a>
-                        <a class="nav-link btn btn-danger" href="DeleteHoliday">
-                            <span class="oi oi-trash" aria-hidden="true"></span>
-                        </a>
+                    </a>
+                    <a class="nav-link btn btn-danger" href="DeleteHoliday/@holiday.ID">
+                        <span class="oi oi-trash" aria-hidden="true"></span>
+                    </a>
                 </td>
-
             </tr>
         }
     </tbody>
 </table>
 
 @code {
-        private List<Holiday> holidays;
-        private Holiday holiday = new Holiday(); 
+    private List<Holiday> holidays;
+    private bool showPopup = false;
 
+    protected override void OnInitialized()
+    {
+        // Fetch holidays from the database
+        holidays = dbContext.Holidays.ToList();
+
+        holidays = dbContext.Holidays.OrderBy(h => h.Date).ToList();
+
+    }
 }
-      
-

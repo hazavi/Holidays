@@ -2,8 +2,8 @@
 
 @using MærkeDag.Data
 @using System.Globalization;
-@inject HolidayDbService holidayService
 @inject NavigationManager NavManager
+@inject HolidayDbService holidayService
 
 <h3>Edit</h3>
 <hr />
@@ -14,7 +14,7 @@
 
             <div class="for-group">
                 <label for="Name" class="control-label"><strong>Holiday Name</strong></label>
-                <input form="Name" class="form-control" @bind=@obj.LocalName />
+                <input form="Name" class="form-control" @bind=@obj.Name />
             </div>
             <div class="for-group">
                 <label for="birthday" class="control-label"><strong>Date</strong></label>
@@ -49,17 +49,17 @@
 
     protected override async Task OnInitializedAsync()
     {
-        obj = await Task.Run(() => holidayService.GetInfo(Convert.ToInt32(Id)));
+        obj = await Task.Run(() => holidayService.GetInfoByID(Convert.ToInt32(Id)));
     }
 
     protected async void Update()
     {
         await holidayService.Update(obj);
-        NavManager.NavigateTo("Birthday");
+        NavManager.NavigateTo("Holiday");
     }
     protected async void Cancel()
     {
-        NavManager.NavigateTo("Birthday");
+       NavManager.NavigateTo("Holiday");
 
     }
 }

@@ -3,24 +3,23 @@ using Microsoft.Extensions.Configuration;
 
 namespace MærkeDag.Data
 {
-    // Create a service to manage the BirthdayDbContext
     public class BirthdayDbService
     {
-        private readonly BirthdayDbContext _dbContext;
+        private readonly HolidayDbContext _dbContext;
 
-        public BirthdayDbService(BirthdayDbContext birthdayDbContext)
+        public BirthdayDbService(HolidayDbContext birthdayDbContext)
         {
            
             _dbContext = birthdayDbContext;
         }
 
-        public async Task<List<Birthday>> GetBirthdays()
+        public async Task<List<Birth>> GetBirthdays()
         {
             return await _dbContext.Birthdays.ToListAsync();
         }
 
         //Add Birthday
-        public async Task<bool> AddBirthday(Birthday birthday)
+        public async Task<bool> AddBirthday(Birth birthday)
         {
             await _dbContext.Birthdays.AddAsync(birthday);
             await _dbContext.SaveChangesAsync();
@@ -28,14 +27,14 @@ namespace MærkeDag.Data
         }
 
         //Get User data by ID
-        public async Task<Birthday> GetInfoByID(int id)
+        public async Task<Birth> GetInfoByID(int id)
         {
-            Birthday birthday = await _dbContext.Birthdays.FirstOrDefaultAsync(x=> x.ID == id);
+            Birth birthday = await _dbContext.Birthdays.FirstOrDefaultAsync(x=> x.ID == id);
             return birthday;
         }
 
         //Update BDAY User data
-        public async Task<bool> UpdateUser(Birthday birthday)
+        public async Task<bool> UpdateUser(Birth birthday)
         {
             _dbContext.Birthdays.Update(birthday);
             await _dbContext.SaveChangesAsync();
@@ -43,7 +42,7 @@ namespace MærkeDag.Data
         }
 
         //Delete User data
-        public async Task<bool> DeleteUser(Birthday birthday)
+        public async Task<bool> DeleteUser(Birth birthday)
         {
             _dbContext.Birthdays.Remove(birthday);
             await _dbContext.SaveChangesAsync();

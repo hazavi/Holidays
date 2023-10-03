@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 
 namespace MærkeDag.Data
 {
-    // Create a service to manage the BirthdayDbContext
     public class HolidayDbService
     {
         private readonly HolidayDbContext _dbContext;
@@ -14,30 +13,30 @@ namespace MærkeDag.Data
             _dbContext = holidayDbContext;
         }
 
-        public async Task<List<Holiday>> GetHolidays()
+        public async Task<List<Holiday>> GetBirthdays()
         {
-            return await _dbContext.Holiday.ToListAsync();
+            return await _dbContext.Holidays.ToListAsync();
         }
 
         //Add Birthday
         public async Task<bool> AddHoliday(Holiday holiday)
         {
-            await _dbContext.Holiday.AddAsync(holiday);
+            await _dbContext.Holidays.AddAsync(holiday);
             await _dbContext.SaveChangesAsync();
             return true;
         }
 
         //Get User data by ID
-        public async Task<Holiday> GetInfo(int id)
+        public async Task<Holiday> GetInfoByID(int id)
         {
-            Holiday holiday = await _dbContext.Holiday.FirstOrDefaultAsync(x => x.Id == id);
+            Holiday holiday = await _dbContext.Holidays.FirstOrDefaultAsync(x => x.ID == id);
             return holiday;
         }
 
         //Update BDAY User data
         public async Task<bool> Update(Holiday holiday)
         {
-            _dbContext.Holiday.Update(holiday);
+            _dbContext.Holidays.Update(holiday);
             await _dbContext.SaveChangesAsync();
             return true;
         }
@@ -45,9 +44,10 @@ namespace MærkeDag.Data
         //Delete User data
         public async Task<bool> Delete(Holiday holiday)
         {
-            _dbContext.Holiday.Remove(holiday);
+            _dbContext.Holidays.Remove(holiday);
             await _dbContext.SaveChangesAsync();
             return true;
         }
     }
+
 }

@@ -13,11 +13,11 @@
 
             <div class="for-group">
                 <label for="Name" class="control-label"><strong>Navn:</strong></label>
-                <input form="Name" class="form-control" placeholder="Indtast Navn" @bind=@obj.Navn/>
+                <input form="Name" class="form-control" placeholder="Indtast Navn" @bind=@obj.Name/>
             </div>
             <div class="for-group">
-                <label for="birthday" class="control-label"><strong>Birthday</strong></label>
-                <input form="birthday" class="form-control" type="date" @bind=@obj.Følselsdag />
+                <label for="birthday" class="control-label"><strong>Birth (dd-MM-yyyy)</strong></label>
+                <input form="birthday" class="form-control" type="date" @bind=@obj.Birthday />
             </div>
         </div>
     </div>
@@ -34,11 +34,12 @@
 </form>
 
 @code {
-    Birthday obj = new Birthday();
+    Birth obj = new Birth();
+    int currentYear = DateTime.Now.Year;
 
     protected override void OnInitialized()
     {
-        obj.Følselsdag = DateTime.Now;
+        obj.Birthday = DateTime.Now;
     }
 
     protected async void CreateBirthday()

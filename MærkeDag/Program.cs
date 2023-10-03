@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -15,8 +16,7 @@ builder.Services.AddScoped<BirthdayDbService>();
 builder.Services.AddScoped<HolidayDbService>();
 
 // Connection to Database
-builder.Services.AddDbContext<BirthdayDbContext>(item=>item.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddDbContext<HolidayDbContext>(item=>item.UseSqlServer(builder.Configuration.GetConnectionString("SecondaryConnection")));
+builder.Services.AddDbContext<HolidayDbContext>(item=>item.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 var app = builder.Build();
@@ -39,7 +39,6 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 app.Run();
-
 
 
 

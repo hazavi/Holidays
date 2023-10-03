@@ -16,11 +16,11 @@
             </div>
             <div class="for-group">
                 <label for="Name" class="control-label"><strong>Navn: </strong></label>
-                <label>@obj.Navn</label>
+                <label>@obj.Name</label>
             </div>
             <div class="for-group">
                 <label for="birthday" class="control-label"><strong>Birthday: </strong></label>
-                <label>@(obj.Følselsdag.ToString("MMMM d, yyyy")[0].ToString().ToUpper() + obj.Følselsdag.ToString("MMMM d, yyyy").Substring(1))</label>
+                <label>@(obj.Birthday.ToString("MMMM d, yyyy")[0].ToString().ToUpper() + obj.Birthday.ToString("MMMM d, yyyy").Substring(1))</label>
             </div>
         </div>
     </div>
@@ -42,13 +42,11 @@
 
     public string Id { get; set; }
 
-    Birthday obj = new Birthday();
-
-
+    Birth obj = new Birth();
 
     protected override void OnInitialized()
     {
-        obj.Følselsdag = DateTime.Now;
+        obj.Birthday = DateTime.Now;
        
     }
 

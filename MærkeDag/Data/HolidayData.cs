@@ -14,77 +14,77 @@ namespace MærkeDag.Data
             new Holiday
             {
                 Date = new DateTime(2023, 1, 1),
-                LocalName = "Nytårsdag",
+                Name = "Nytårsdag",
             },
             new Holiday
             {
                 Date = new DateTime(2023, 4, 6),
-                LocalName = "Skærtorsdag",
+                Name = "Skærtorsdag",
             },
             new Holiday
             {
                 Date = new DateTime(2023, 4, 7),
-                LocalName = "Langfredag",
+                Name = "Langfredag",
             },
             new Holiday
             {
                 Date = new DateTime(2023, 4, 9),
-                LocalName = "Påskedag",
+                Name = "Påskedag",
             },
             new Holiday
             {
                 Date = new DateTime(2023, 4, 10),
-                LocalName = "2. Påskedag",
+                Name = "2. Påskedag",
             },
             new Holiday
             {
                 Date = new DateTime(2023, 5, 5),
-                LocalName = "Store bededag",
+                Name = "Store bededag",
             },
             new Holiday
             {
                 Date = new DateTime(2023, 5, 18),
-                LocalName = "Kristi Himmelfartsdag",
+                Name = "Kristi Himmelfartsdag",
             },
             new Holiday
             {
                 Date = new DateTime(2023, 5, 19),
-                LocalName = "Banklukkedag",
+                Name = "Banklukkedag",
             },
             new Holiday
             {
                 Date = new DateTime(2023, 5, 28),
-                LocalName = "Pinsedag",
+                Name = "Pinsedag",
             },
             new Holiday
             {
                 Date = new DateTime(2023, 5, 29),
-                LocalName = "2. Pinsedag",
+                Name = "2. Pinsedag",
             },
             new Holiday
             {
                 Date = new DateTime(2023, 6, 5),
-                LocalName = "Grundlovsdag",
+                Name = "Grundlovsdag",
             },
             new Holiday
             {
                 Date = new DateTime(2023, 12, 24),
-                LocalName = "Juleaftensdag",
+                Name = "Juleaftensdag",
             },
             new Holiday
             {
                 Date = new DateTime(2023, 12, 25),
-                LocalName = "Juledag / 1. juledag",
+                Name = "Juledag / 1. juledag",
             },
             new Holiday
             {
                 Date = new DateTime(2023, 12, 26),
-                LocalName = "2. juledag",
+                Name = "2. juledag",
             },
             new Holiday
             {
                 Date = new DateTime(2023, 12, 31),
-                LocalName = "Nytårsaftensdag",
+                Name = "Nytårsaftensdag",
             },
         };
 

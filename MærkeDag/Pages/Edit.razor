@@ -13,11 +13,11 @@
 
             <div class="for-group">
                 <label for="Name" class="control-label"><strong>Navn</strong></label>
-                <input form="Name" class="form-control" @bind=@obj.Navn/>
+                <input form="Name" class="form-control" @bind=@obj.Name/>
             </div>
             <div class="for-group">
                 <label for="birthday" class="control-label"><strong>Birthday</strong></label>
-                <input form="birthday" class="form-control" type="date" @bind=@obj.Følselsdag />
+                <input form="birthday" class="form-control" type="date" @bind=@obj.Birthday />
             </div>
         </div>
     </div>
@@ -39,11 +39,11 @@
 
     public string Id { get; set; }
 
-    Birthday obj = new Birthday();
+    Birth obj = new Birth();
 
     protected override void OnInitialized()
     {
-        obj.Følselsdag = DateTime.Now;
+        obj.Birthday = DateTime.Now;
     }
 
     protected override async Task OnInitializedAsync()

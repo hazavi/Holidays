@@ -3,22 +3,13 @@
 @using MærkeDag
 @using Microsoft.EntityFrameworkCore;
 @using Microsoft.Extensions.Configuration;
+@inject HolidayDbContext dbContext
 
-@inject BirthdayDbContext dbContext
-
-<h1>MærkeDage</h1>
-
-
-<ul>
-    @foreach (var item in dbContext.Birthdays)
-    {
-        <li>@item.Navn - @item.Følselsdag.ToShortDateString()</li>
-    }
-</ul>
+<h1>Calendar</h1>
 
 <!-- Select Month and Year -->
 <div class="select-month">
-    <label for="monthSelector">Select Month:</label>
+    <label for="monthSelector"><strong>Select Month:</strong></label>
     <select id="monthSelector" @onchange="ChangeMonth">
         @foreach (var month in Enumerable.Range(1, 12))
         {
@@ -32,7 +23,6 @@
 <div class="calendar">
     <!-- Display the current month and year -->
 
-    <!-- Calendar Grid -->
     <table class="table">
         <thead>
             <!-- Weekday headers (Sun, Mon, Tue, etc.) -->
@@ -57,20 +47,26 @@
                             @if (currentDate.Month == currentMonth.Month)
                             {
                                 @currentDate.Day
-                                @if (isHoliday)
+                                <!--Holiday Name Display-->
+                                @foreach(var holiday in dbContext.Holidays)
                                 {
-                                    <br />
-                                    <span class="holiday-text">@holidaysInMonth.First(h => h.Date.Date == currentDate.Date).LocalName</span>
-                                }
-                                 <!-- Add this code to display birthdays -->
-                                @foreach (var birthday in dbContext.Birthdays)
-                                {
-                                    if (birthday.Følselsdag.Date == currentDate.Date)
+                                  if (holiday.Date == currentDate.Date)
                                     {
                                         <br />
-                                        <span class="birthday-text">@birthday.Navn's Birthday</span>
+                                        <span class="holiday-text">@holiday.Name</span>
+                                    }
+                                   
+                                }
+                                 <!--display birthdays -->
+                                @foreach (var birthday in dbContext.Birthdays)
+                                {
+                                    if (birthday.Birthday.Month == currentDate.Month && birthday.Birthday.Day == currentDate.Day)
+                                    {
+                                        <br />
+                                        <span class="birthday-text">@birthday.Name's Birthday</span>
                                     }
                                 }
+                                
                             }
                         </td>
                     }
@@ -87,8 +83,8 @@
     private DateTime currentMonth = DateTime.Now;
     protected int year = 2023;
     protected string CountryCode = "DK";
-    private int selectedYear = DateTime.Now.Year; // Default to the current year
-    private List<Birthday> birthdays = new List<Birthday>();
+    private int selectedYear = DateTime.Now.Year;
+    private List<Birth> birthdays = new List<Birth>();
 
     protected override async Task OnInitializedAsync()
     {

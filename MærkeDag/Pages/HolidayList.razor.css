@@ -1,5 +1,4 @@
-﻿
-.nav-link.btn {
+﻿.nav-link.btn {
     color: #fff;
     padding: 8px 14px;
     border-radius: 4px;
@@ -11,4 +10,14 @@
 .actionButtons {
     display: flex;
     justify-content: space-evenly;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 2em;
+    color: green;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
 }

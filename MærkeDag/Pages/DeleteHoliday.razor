@@ -2,8 +2,8 @@
 
 @using MærkeDag.Data
 @using System.Globalization;
-@inject HolidayDbService holidayService
 @inject NavigationManager NavManager
+@inject HolidayDbService holidayService
 
 <h3>Delete</h3>
 <hr />
@@ -13,11 +13,11 @@
         <div class="cold-md-8">
             <div class="for-group">
                 <label for="Id" class="control-label"><strong>ID: </strong> </label>
-                <label>@obj.Id</label>
+                <label>@obj.ID</label>
             </div>
             <div class="for-group">
                 <label for="Name" class="control-label"><strong>Navn: </strong></label>
-                <label>@obj.LocalName</label>
+                <label>@obj.Name</label>
             </div>
             <div class="for-group">
                 <label for="birthday" class="control-label"><strong>Birthday: </strong></label>
@@ -30,7 +30,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <input type="button" class="btn btn-primary" @onclick="@Delete" value="Delete" />
-                <input type="button" class="btn btn-danger" @onclick="@Cancel" value="Cancel" />
+                <input type="button" class="btn btn-danger" @onclick="@Cancel" value="Cancel" />*
             </div>
         </div>
     </div>
@@ -45,28 +45,27 @@
 
     Holiday obj = new Holiday();
 
-
-
     protected override void OnInitialized()
     {
         obj.Date = DateTime.Now;
-
+       
     }
 
     protected override async Task OnInitializedAsync()
     {
-        obj = await Task.Run(() => holidayService.GetInfo(Convert.ToInt32(Id)));
+        obj = await Task.Run(() => holidayService.GetInfoByID(Convert.ToInt32(Id)));
     }
 
     protected async void Delete()
     {
         await holidayService.Delete(obj);
-        NavManager.NavigateTo("Birthday");
+        NavManager.NavigateTo("Holiday");
     }
     protected async void Cancel()
     {
-        NavManager.NavigateTo("Birthday");
+       NavManager.NavigateTo("Holiday");
 
     }
+
 }
 

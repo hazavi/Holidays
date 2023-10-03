@@ -1,39 +1,57 @@
 ﻿@page "/AddHoliday"
-@using Data
+@using MærkeDag.Data
+@using System.Globalization;
 @inject NavigationManager NavManager
-@inject HolidayService holidayService
-@using Microsoft.AspNetCore.Components.Forms
+@inject HolidayDbService holidayService
 
-<h1>Add Holiday</h1>
+<h3>Add Holiday</h3>
 
-<!-- Create Holiday Form -->
-<EditForm Model="newHoliday">
-    <DataAnnotationsValidator />
-    <div class="form-group">
-        <label for="holidayName">Holiday Name:</label>
-        <InputText id="holidayName" @bind-Value="newHoliday.LocalName" class="form-control" />
-        <ValidationMessage For="() => newHoliday.LocalName" />
+
+<form>
+    <div class="row">
+        <div class="cold-md-8">
+
+            <div class="for-group">
+                <label for="Name" class="control-label"><strong>Navn:</strong></label>
+                <input form="Name" class="form-control" placeholder="Indtast Navn" @bind=@obj.Name/>
+            </div>
+            <div class="for-group">
+                <label for="birthday" class="control-label"><strong>Birth (dd-MM-yyyy)</strong></label>
+                <input form="birthday" class="form-control" type="date" @bind=@obj.Date />
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="holidayDate">Holiday Date:</label>
-        <InputDate id="holidayDate" @bind-Value="newHoliday.Date" class="form-control" />
-        <ValidationMessage For="() => newHoliday.Date" />
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@Create" value="Save" />
+                <input type="button" class="btn btn-danger" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
     </div>
-    <button class="btn btn-success" @onclick="CreateHoliday">Create</button>
-    <button class="btn btn-danger" @onclick="Cancel">Cancel</button>
-</EditForm>
+
+</form>
+
 
 @code {
-    Holiday newHoliday = new Holiday();
 
-    private void CreateHoliday()
+    Holiday obj = new Holiday();
+    int currentYear = DateTime.Now.Year;
+
+    protected override void OnInitialized()
     {
-        holidayService.AddHoliday(newHoliday);
-        NavManager.NavigateTo("/HolidayList");
+        obj.Date = DateTime.Now;
     }
 
-    private void Cancel()
-    { 
-        NavManager.NavigateTo("/HolidayList");
+    protected async void Create()
+    {
+        await holidayService.AddHoliday(obj);
+        NavManager.NavigateTo("Holiday");
+    }
+    protected async void Cancel()
+    {
+       NavManager.NavigateTo("Holiday");
+
     }
 }
