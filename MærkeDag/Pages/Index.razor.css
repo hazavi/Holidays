@@ -11,49 +11,45 @@
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
-    gap: 100px; /* Adjust the gap between columns and rows */
+    gap: 100px; 
 }
 
 .table {
     width: 100%;
-    height: 100vh; /* 100% of the viewport height */
-    table-layout: fixed; /* Prevent cell content from affecting column width */
+    height: 100vh; 
+    table-layout: fixed; 
     border-collapse: collapse;
 }
 
     .table th, .table td {
-        width: 20%; /* Adjust the width as needed for your desired number of columns */
-        padding: 10px; /* Adjust padding as needed */
-        text-align: center; /* Center content horizontally and vertically */
-        border: 1px solid #000; /* Add borders for cell separation */
-        overflow:hidden; /* Hide content that overflows cell boundaries */
+        width: 20%;
+        padding: 10px; 
+        text-align: center; 
+        border: 1px solid #000; 
+        overflow:hidden; 
     }
 
-    /* Prevent text from wrapping inside cells */
     .table th, .table td {
         white-space: nowrap;
-        text-overflow: ellipsis; /* Display ellipsis (...) for truncated text */
+        text-overflow: ellipsis; 
         overflow: hidden;
     }
 
-    /* Style for table header (optional) */
     .table th {
         background-color: #000;
         color: #fff;
     }
 
 
-/* Style for the holiday text */
 .holiday-text {
-    color: #e74c3c; /* Red color for holidays */
+    color: #e74c3c; 
     font-weight: bold;
 }
 .birthday-text {
-    color:blueviolet; /* Red color for holidays */
+    color:blueviolet; 
     font-weight: bold;
 }
 
-/* Month Navigation Styles */
 .month-navigation {
     display: flex;
     justify-content: space-between;
@@ -61,12 +57,10 @@
     margin-bottom: 20px;
 }
 
-/* List of Holidays Styles */
 .holidays {
     margin-top: 20px;
 }
 
-    /* Style for the list of holidays */
     .holidays ul {
         list-style-type: none;
         padding: 0;
@@ -76,7 +70,6 @@
         margin-bottom: 10px;
     }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
     .calendar {
         width: 100%;
@@ -89,7 +82,7 @@
 
 
 #monthSelector {
-    width: 200px; /* Set the desired width */
+    width: 200px; 
     padding: 8px;
     font-size: 16px;
     text-transform: capitalize;
@@ -105,11 +98,10 @@
 
     #monthSelector:focus {
         outline: none;
-        border-color: #007bff; /* Customize the focus border color */
-        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a box shadow when focused */
+        border-color: #007bff; 
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
     }
 
-    /* Customize the dropdown arrow */
     #monthSelector::-ms-expand {
         display: none;
     }
@@ -122,3 +114,9 @@
         transform: translateY(-50%);
         pointer-events: none;
     }
+
+.today-cell {
+    background-color: lightsteelblue;
+    color: black;
+    font-weight: bold;
+}
